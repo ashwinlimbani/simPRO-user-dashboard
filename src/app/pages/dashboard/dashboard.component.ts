@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { map, tap } from 'rxjs';
+import { map } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -32,7 +32,6 @@ export class DashboardComponent {
       let cities = users.map((u) => u.address.city);
       cities = [...new Set(cities)];
       return cities.sort();
-    }),
-    tap((cities) => console.log(cities))
+    })
   );
 }
