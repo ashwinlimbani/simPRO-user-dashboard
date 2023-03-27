@@ -1,10 +1,13 @@
 <mat-grid-list cols="4" gutterSize="5px">
   <mat-grid-tile [colspan]="1">
     <mat-card class="user-tile">
+      <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUserCount"></mat-spinner>
       <mat-card-content>
-        Number of users
-        <div class="count">
-          {{userCount$ | async}}
+        <div [hidden]="loadingUserCount">
+          Number of users
+          <div class="count">
+            {{userCount$ | async}}
+          </div>
         </div>
       </mat-card-content>
       <mat-card-actions class="tile-action">
@@ -14,12 +17,15 @@
   </mat-grid-tile>
   <mat-grid-tile [colspan]="3">
     <mat-card class="user-tile">
+      <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUserCities"></mat-spinner>
       <mat-card-content>
-        User cities
-        <div class="cities">
-          <span *ngFor="let city of userCities$ | async; let last">
-            <a href="">{{city}}<span *ngIf="last">, </span> </a>
-          </span>
+        <div [hidden]="loadingUserCities">
+          User cities
+          <div class="cities">
+            <span *ngFor="let city of userCities$ | async; let last">
+              <a href="">{{city}}<span *ngIf="last">, </span> </a>
+            </span>
+          </div>
         </div>
       </mat-card-content>
     </mat-card>
