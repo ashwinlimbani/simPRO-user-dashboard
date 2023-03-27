@@ -28,7 +28,7 @@
   </table>
 </div>
 
-<div>
+<div *ngIf="mobileView">
   <mat-card class="user-details-card" *ngFor="let user of dataSource">
     <mat-card-content>
       <div class="key">{{user.firstName}} {{user.lastName}}</div>
