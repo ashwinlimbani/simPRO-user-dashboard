@@ -1,5 +1,5 @@
-<mat-grid-list cols="4" gutterSize="5px">
-  <mat-grid-tile [colspan]="1">
+<mat-grid-list [cols]="breakpoint" rowHeight="300px" (window:resize)="onResize($event)">
+  <mat-grid-tile>
     <mat-card class="user-tile">
       <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUserCount"></mat-spinner>
       <mat-card-content>
@@ -15,7 +15,7 @@
       </mat-card-actions>
     </mat-card>
   </mat-grid-tile>
-  <mat-grid-tile [colspan]="3">
+  <mat-grid-tile [colspan]="cityColspan">
     <mat-card class="user-tile">
       <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUserCities"></mat-spinner>
       <mat-card-content>

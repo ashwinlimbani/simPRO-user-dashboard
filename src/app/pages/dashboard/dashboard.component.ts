@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { finalize, map, take } from 'rxjs';
@@ -26,10 +26,12 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   private usersService = inject(UsersService);
   loadingUserCount = true;
   loadingUserCities = true;
+  breakpoint: number = 4;
+  cityColspan: number = 3;
 
   userCount$ = this.usersService.users$.pipe(
     take(1),
@@ -47,4 +49,14 @@ export class DashboardComponent {
     }),
     finalize(() => (this.loadingUserCities = false))
   );
+
+  ngOnInit() {
+    this.breakpoint = window.innerWidth <= 650 ? 1 : 4;
+    this.cityColspan = window.innerWidth <= 650 ? 1 : 3;
+  }
+
+  onResize(event: any) {
+    this.breakpoint = event.target.innerWidth <= 650 ? 1 : 4;
+    this.cityColspan = event.target.innerWidth <= 650 ? 1 : 3;
+  }
 }
