@@ -10,4 +10,14 @@ export interface User {
   gender: string;
   image: string;
   username: string;
+  address: {
+    address: string;
+    city: string;
+    coordinates: {
+      lat: number;
+      lng: number;
+    };
+    postalCode: string;
+    state: string;
+  };
 }

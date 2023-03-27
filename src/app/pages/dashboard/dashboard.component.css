@@ -1,5 +1,27 @@
+.user-tile {
+  margin: 0.5rem;
+  width: 98%;
+  height: 98%;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
 .user-tile .count {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 500;
   padding: 1rem;
+}
+
+.tile-action {
+  margin-top: auto;
+}
+
+.cities {
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 1rem;
+}
+
+.cities a {
+  color: black;
 }

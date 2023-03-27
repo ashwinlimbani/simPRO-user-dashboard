@@ -1,10 +1,27 @@
-<div class="pad-1">
-  <mat-card class="user-tile">
-    <mat-card-content>
-      Number of users
-      <div class="count">
-        {{userCount$ | async}}
-      </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+<mat-grid-list cols="4" gutterSize="5px">
+  <mat-grid-tile [colspan]="1">
+    <mat-card class="user-tile">
+      <mat-card-content>
+        Number of users
+        <div class="count">
+          {{userCount$ | async}}
+        </div>
+      </mat-card-content>
+      <mat-card-actions class="tile-action">
+        <button mat-button color="primary" [routerLink]="['/users']">View Users</button>
+      </mat-card-actions>
+    </mat-card>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="3">
+    <mat-card class="user-tile">
+      <mat-card-content>
+        User cities
+        <div class="cities">
+          <span *ngFor="let city of userCities$ | async; let last">
+            <a href="">{{city}}<span *ngIf="last">, </span> </a>
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>
