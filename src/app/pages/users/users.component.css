@@ -32,7 +32,7 @@ tr.example-element-row:not(.example-expanded-row):active {
 
 .profile-img {
   height: 200px;
-  margin: 1rem;
+  margin: 0.5rem;
   border: 2px solid #979797;
 }
 
@@ -44,10 +44,14 @@ tr.example-element-row:not(.example-expanded-row):active {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .user-details {
   min-width: 45%;
   width: 45%;
+}
+
+.user-details-card {
+  margin: 1rem;
 }

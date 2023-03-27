@@ -12,11 +12,24 @@ import {
 } from '@angular/animations';
 import { User } from 'src/app/interface/user';
 import { AvoidKeysPipe } from 'src/app/shared/pipes/avoid-keys.pipe';
+import {
+  BreakpointObserver,
+  BreakpointState,
+  LayoutModule,
+} from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatTableModule, AvoidKeysPipe],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatTableModule,
+    AvoidKeysPipe,
+    LayoutModule,
+    MatCardModule,
+  ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
   animations: [
@@ -32,6 +45,7 @@ import { AvoidKeysPipe } from 'src/app/shared/pipes/avoid-keys.pipe';
 })
 export class UsersComponent implements OnInit {
   private usersService = inject(UsersService);
+  private breakpointObserver = inject(BreakpointObserver);
 
   dataSource: any;
   columnsToDisplay = [
@@ -44,13 +58,17 @@ export class UsersComponent implements OnInit {
   ];
   propertiesUsed = [...this.columnsToDisplay, 'image'];
   expandedElement: User | null = null;
+  mobileView = false;
 
   ngOnInit(): void {
     this.usersService.users$.subscribe((users) => {
-      console.log(users);
-      console.log(Object.getOwnPropertyNames(users[0]));
-      // Object.
       this.dataSource = users;
     });
+
+    this.breakpointObserver
+      .observe(['(min-width: 650px)'])
+      .subscribe((state: BreakpointState) => {
+        this.mobileView = !state.matches;
+      });
   }
 }

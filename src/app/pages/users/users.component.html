@@ -1,4 +1,4 @@
-<div class="table-container">
+<div class="table-container" *ngIf="!mobileView">
   <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
@@ -26,4 +26,16 @@
     </tr>
     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
+</div>
+
+<div>
+  <mat-card class="user-details-card" *ngFor="let user of dataSource">
+    <mat-card-content>
+      <div class="key">{{user.firstName}} {{user.lastName}}</div>
+      <img class="profile-img" [src]="user.image" alt="Profile">
+      <div *ngFor="let item of user | avoidKeys:['firstName','lastName'] |keyvalue">
+        <span class="key">{{item.key}}</span>: {{item.value |json}}
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
