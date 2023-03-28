@@ -18,6 +18,8 @@ import {
   LayoutModule,
 } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
+import { ActivatedRoute } from '@angular/router';
+import { map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-users',
@@ -46,6 +48,7 @@ import { MatCardModule } from '@angular/material/card';
 export class UsersComponent implements OnInit {
   private usersService = inject(UsersService);
   private breakpointObserver = inject(BreakpointObserver);
+  private route = inject(ActivatedRoute);
 
   dataSource: any;
   columnsToDisplay = [
@@ -54,16 +57,32 @@ export class UsersComponent implements OnInit {
     'username',
     'email',
     'gender',
-    'birthDate',
+    'city',
   ];
   propertiesUsed = [...this.columnsToDisplay, 'image'];
   expandedElement: User | null = null;
   mobileView = false;
 
   ngOnInit(): void {
-    this.usersService.users$.subscribe((users) => {
-      this.dataSource = users;
-    });
+    this.route.queryParams
+      .pipe(
+        switchMap((params) => {
+          return this.usersService.users$.pipe(
+            map((users) => {
+              if (params['city']) {
+                return users.filter(
+                  (user) => user.address.city == params['city']
+                );
+              }
+
+              return users;
+            })
+          );
+        })
+      )
+      .subscribe((users) => {
+        this.dataSource = users;
+      });
 
     this.breakpointObserver
       .observe(['(min-width: 650px)'])
