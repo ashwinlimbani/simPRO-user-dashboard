@@ -55,3 +55,8 @@ tr.example-element-row:not(.example-expanded-row):active {
 .user-details-card {
   margin: 1rem;
 }
+
+
+.loading-spinner {
+  margin: 1rem auto;
+}

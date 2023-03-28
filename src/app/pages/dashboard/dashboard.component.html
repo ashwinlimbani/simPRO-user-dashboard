@@ -23,7 +23,7 @@
           User cities
           <div class="cities">
             <span *ngFor="let city of userCities$ | async; let last=last">
-              <a [routerLink]="['/users']" [queryParams]="{city: city}">{{city}}</a><span *ngIf="!last">, </span>
+              <a [routerLink]="['/users',city]">{{city}}</a><span *ngIf="!last">, </span>
             </span>
           </div>
         </div>

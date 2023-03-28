@@ -19,7 +19,8 @@ import {
 } from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
-import { map, switchMap } from 'rxjs';
+import { delay, map, switchMap, take } from 'rxjs';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-users',
@@ -31,6 +32,7 @@ import { map, switchMap } from 'rxjs';
     AvoidKeysPipe,
     LayoutModule,
     MatCardModule,
+    MatProgressSpinnerModule,
   ],
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css'],
@@ -50,7 +52,6 @@ export class UsersComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
   private route = inject(ActivatedRoute);
 
-  dataSource: any;
   columnsToDisplay = [
     'firstName',
     'lastName',
@@ -62,28 +63,26 @@ export class UsersComponent implements OnInit {
   propertiesUsed = [...this.columnsToDisplay, 'image'];
   expandedElement: User | null = null;
   mobileView = false;
+  loadingUsers = true;
+
+  users$ = this.route.params.pipe(
+    take(1),
+    switchMap((params) => {
+      return this.usersService.users$.pipe(
+        delay(1),
+        map((users) => {
+          this.loadingUsers = false;
+          if (params['city']) {
+            return users.filter((user) => user.address.city == params['city']);
+          }
+
+          return users;
+        })
+      );
+    })
+  );
 
   ngOnInit(): void {
-    this.route.queryParams
-      .pipe(
-        switchMap((params) => {
-          return this.usersService.users$.pipe(
-            map((users) => {
-              if (params['city']) {
-                return users.filter(
-                  (user) => user.address.city == params['city']
-                );
-              }
-
-              return users;
-            })
-          );
-        })
-      )
-      .subscribe((users) => {
-        this.dataSource = users;
-      });
-
     this.breakpointObserver
       .observe(['(min-width: 650px)'])
       .subscribe((state: BreakpointState) => {
