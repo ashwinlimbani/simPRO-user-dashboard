@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Location } from '@angular/common';
+import { Component, inject } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'angular-test';
+  private location = inject(Location);
+
+  goBack() {
+    this.location.back();
+  }
 }

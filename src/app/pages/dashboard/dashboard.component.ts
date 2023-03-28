@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersService } from 'src/app/shared/services/users.service';
-import { finalize, map, take } from 'rxjs';
+import { delay, finalize, map, take } from 'rxjs';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   userCount$ = this.usersService.users$.pipe(
     take(1),
     map((users) => users.length),
+    delay(1),
     finalize(() => {
       this.loadingUserCount = false;
     })
@@ -47,6 +48,7 @@ export class DashboardComponent implements OnInit {
       cities = [...new Set(cities)];
       return cities.sort();
     }),
+    delay(1),
     finalize(() => (this.loadingUserCities = false))
   );
 
