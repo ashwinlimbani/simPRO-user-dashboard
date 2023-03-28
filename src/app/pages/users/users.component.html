@@ -1,4 +1,4 @@
-<div class="table-container" *ngIf="!mobileView">
+<div class="table-container">
   <table mat-table [dataSource]="users$" multiTemplateDataRows class="mat-elevation-z8">
     <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
       <th mat-header-cell *matHeaderCellDef> {{column}} </th>
@@ -29,7 +29,7 @@
   <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUsers"></mat-spinner>
 </div>
 
-<div *ngIf="mobileView">
+<div class="mobile-view-container">
   <mat-spinner class="loading-spinner" [diameter]="30" *ngIf="loadingUsers"></mat-spinner>
   <mat-card class="user-details-card" *ngFor="let user of users$ |async">
     <mat-card-content>

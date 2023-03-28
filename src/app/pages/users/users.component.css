@@ -60,3 +60,21 @@ tr.example-element-row:not(.example-expanded-row):active {
 .loading-spinner {
   margin: 1rem auto;
 }
+
+.mobile-view-container {
+  display: block;
+}
+
+.table-container {
+  display: none;
+}
+
+@media only screen and (min-width: 650px) {
+  .mobile-view-container {
+    display: none;
+  }
+
+  .table-container {
+    display: block;
+  }
+}

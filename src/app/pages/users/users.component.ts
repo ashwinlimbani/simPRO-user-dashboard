@@ -12,11 +12,6 @@ import {
 } from '@angular/animations';
 import { User } from 'src/app/interface/user';
 import { AvoidKeysPipe } from 'src/app/shared/pipes/avoid-keys.pipe';
-import {
-  BreakpointObserver,
-  BreakpointState,
-  LayoutModule,
-} from '@angular/cdk/layout';
 import { MatCardModule } from '@angular/material/card';
 import { ActivatedRoute } from '@angular/router';
 import { delay, map, switchMap, take } from 'rxjs';
@@ -30,7 +25,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatIconModule,
     MatTableModule,
     AvoidKeysPipe,
-    LayoutModule,
     MatCardModule,
     MatProgressSpinnerModule,
   ],
@@ -47,9 +41,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     ]),
   ],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
   private usersService = inject(UsersService);
-  private breakpointObserver = inject(BreakpointObserver);
   private route = inject(ActivatedRoute);
 
   columnsToDisplay = [
@@ -81,12 +74,4 @@ export class UsersComponent implements OnInit {
       );
     })
   );
-
-  ngOnInit(): void {
-    this.breakpointObserver
-      .observe(['(min-width: 650px)'])
-      .subscribe((state: BreakpointState) => {
-        this.mobileView = !state.matches;
-      });
-  }
 }
