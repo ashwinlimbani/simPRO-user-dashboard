@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="goBack()">
+  <button mat-icon-button (click)="navigationService.goBack()" *ngIf="navigationService.getHistory().length > 1">
     <mat-icon>arrow_back</mat-icon>
   </button>
   <span>My App</span>

@@ -1,5 +1,5 @@
-import { Location } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
+import { NavigationService } from './shared/services/navigation.service';
 
 @Component({
   selector: 'app-root',
@@ -7,17 +7,9 @@ import { Component, inject, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  private location = inject(Location);
+  navigationService = inject(NavigationService);
 
-  ngOnInit(): void {
-    this.location.subscribe((value) => {
-      console.log(value);
-    });
-  }
-
-  goBack() {
-    // console.log(this.location.);
-
-    this.location.back();
+  ngOnInit() {
+    this.navigationService.startSaveHistory();
   }
 }
