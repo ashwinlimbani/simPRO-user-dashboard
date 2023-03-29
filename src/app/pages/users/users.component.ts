@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UsersService } from 'src/app/shared/services/users.service';
 import { MatIconModule } from '@angular/material/icon';
