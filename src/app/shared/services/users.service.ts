@@ -67,11 +67,11 @@ const createReturnObs = (
   bufferReplays: number
 ) => obs.pipe(shareReplay(bufferReplays, time));
 
-export function renewAfterTimer(
-  obs: Observable<any>,
+export function renewAfterTimer<T>(
+  obs: Observable<T>,
   time: number,
   bufferReplays: number = 1
-) {
+): Observable<T> {
   return createReturnObs(obs, time, bufferReplays).pipe(
     first(
       null,
